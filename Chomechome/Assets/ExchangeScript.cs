@@ -29,7 +29,7 @@ public class ExchangeScript : MonoBehaviour
 
         //ballScriptのDropBallメソッドを実行し、50のひよこを作成
 
-        BallScript.SendMessage("DropBall", 50);
+        BallScript.SendMessage("DropBall", 40);
 
     }
 

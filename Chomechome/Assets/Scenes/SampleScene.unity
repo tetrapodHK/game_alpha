@@ -483,11 +483,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 1682679861577944, guid: ee01c6f4ea1735049aa36d18bfefe8be, type: 2}
   ballSprites:
-  - {fileID: 21300000, guid: 0590f110aee8dff4e8e7bacd57f95123, type: 3}
-  - {fileID: 21300000, guid: 2b8b0cd8338d2534b905a36806e8582e, type: 3}
-  - {fileID: 21300000, guid: 9fde7743c1cfe0c4397b06c58f5b521a, type: 3}
-  - {fileID: 21300000, guid: b49b0af5dcdbc0f4ea325ff0792c1983, type: 3}
-  - {fileID: 21300000, guid: d967ee7388cf8ab499ea72bc3c3cb9a1, type: 3}
+  - {fileID: 21300000, guid: e60abb75d766fa94a9be91ce597785ab, type: 3}
+  - {fileID: 21300000, guid: 64b61aa0b85c3e44e817c00307adfa89, type: 3}
+  - {fileID: 21300000, guid: b79d5c3b63bf6b74cb4bb2afbfb3b230, type: 3}
+  - {fileID: 21300000, guid: 178387cd944af0243825bc35926a89b8, type: 3}
+  - {fileID: 21300000, guid: d104a272013f8f148980a543319954a5, type: 3}
   exchangeButton: {fileID: 1295578777}
 --- !u!20 &519420031
 Camera:

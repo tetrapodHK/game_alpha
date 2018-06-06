@@ -31,7 +31,7 @@ public class ballScript : MonoBehaviour
     void Start()
     {
 
-        StartCoroutine(DropBall(50));
+        StartCoroutine(DropBall(40));
 
     }
 
@@ -181,7 +181,7 @@ public class ballScript : MonoBehaviour
 
     IEnumerator DropBall(int count)
     {
-        if (count == 50)
+        if (count == 40)
         {
 
             StartCoroutine("RestrictPush");
