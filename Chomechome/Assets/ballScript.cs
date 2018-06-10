@@ -17,6 +17,8 @@ public class ballScript : MonoBehaviour
 
     private GameObject lastBall; //最後にドラッグしたボール
 
+    private GameObject midBall;
+
     private string currentName; //名前判定用のstring変数
 
     //削除するボールのリスト
@@ -25,13 +27,18 @@ public class ballScript : MonoBehaviour
 
     public GameObject exchangeButton;
 
+    public GameObject scoreGUI;
 
+    public bool isPlaying = true;
+
+    private int point = 0;
 
 
     void Start()
     {
 
         StartCoroutine(DropBall(40));
+
 
     }
 
@@ -40,25 +47,29 @@ public class ballScript : MonoBehaviour
 
         //画面をクリックし、firstBallがnullの時実行
 
-        if (Input.GetMouseButtonDown(0) && firstBall == null)
+        if (isPlaying)
         {
 
-            OnDragStart();
+            if (Input.GetMouseButtonDown(0) && firstBall == null)
+            {
 
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
+                OnDragStart();
 
-            //クリックを終えた時
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
 
-            OnDragEnd();
+                //クリックを終えた時
 
-        }
-        else if (firstBall != null)
-        {
+                OnDragEnd();
 
-            OnDragging();
+            }
+            else if (firstBall != null)
+            {
 
+                OnDragging();
+
+            }
         }
 
     }
@@ -111,25 +122,42 @@ public class ballScript : MonoBehaviour
         {
 
             GameObject hitObj = hit.collider.gameObject;
+            int obj_cnt = 0;
+            int flag = 0;
 
             //同じ名前のブロックをクリック＆lastBallとは別オブジェクトである時
 
-            if (hitObj.name == currentName && lastBall != hitObj)
+            if ((hitObj.name == currentName || hitObj.name == "chome5") && lastBall != hitObj && firstBall != hitObj)
             {
 
                 //２つのオブジェクトの距離を取得
 
                 float distance = Vector2.Distance(hitObj.transform.position, lastBall.transform.position);
 
-                if (distance < 1.0f)
+                if (distance < 1.1f)
                 {
 
                     //削除対象のオブジェクトを格納
 
-                    lastBall = hitObj;
+                    obj_cnt = removableBallList.Count;
 
-                    PushToList(hitObj);
+                    for (int i = 0; i < obj_cnt; i++)
+                    {
+                        if(removableBallList[i] == hitObj)
+                        {
+                            flag = 1;
+                        }
 
+                    }
+
+                    if (flag == 0)
+                    {
+                        lastBall = hitObj;
+
+                        PushToList(hitObj);
+
+                    }
+                    flag = 0;
                 }
 
             }
@@ -145,18 +173,35 @@ public class ballScript : MonoBehaviour
 
         if (remove_cnt >= 3)
         {
+            point = 0;
 
             for (int i = 0; i < remove_cnt; i++)
             {
 
                 Destroy(removableBallList[i]);
-
+                if (i >= 2)
+                {
+                    point += i-1;
+                }
             }
+
+            scoreGUI.SendMessage("AddPoint", point);
+
+            //********** 終了 **********//
 
             //ボールを新たに生成
 
-            StartCoroutine(DropBall(remove_cnt));
+            if (remove_cnt >= 7)
+            {
+                StartCoroutine(DropBall(-1));
+                StartCoroutine(DropBall(remove_cnt-1));
+            }
+            else
+            {
 
+                StartCoroutine(DropBall(remove_cnt));
+
+            }
         }
         else
         {
@@ -188,10 +233,28 @@ public class ballScript : MonoBehaviour
 
         }
 
+        if (count == -1)
+        {
+            Vector2 pos = new Vector2(Random.Range(-2.0f, 2.0f), 7f);
+
+            GameObject ball = Instantiate(ballPrefab, pos, Quaternion.AngleAxis(Random.Range(-40, 40), Vector3.forward)) as GameObject;
+
+            ball.name = "chome" + 5;
+
+            SpriteRenderer spriteObj = ball.GetComponent<SpriteRenderer>();
+
+            spriteObj.sprite = ballSprites[5];
+
+            yield return new WaitForSeconds(0.05f);
+
+        }
+        else { 
+
+
         for (int i = 0; i < count; i++)
         {
 
-           
+
             Vector2 pos = new Vector2(Random.Range(-2.0f, 2.0f), 7f);
 
             GameObject ball = Instantiate(ballPrefab, pos, Quaternion.AngleAxis(Random.Range(-40, 40), Vector3.forward)) as GameObject;
@@ -207,7 +270,7 @@ public class ballScript : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
 
         }
-
+    }
     }
 
     IEnumerator RestrictPush()

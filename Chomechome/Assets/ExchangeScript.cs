@@ -10,7 +10,6 @@ public class ExchangeScript : MonoBehaviour
     public ballScript BallScript;
 
 
-
     public void Exchange()
     {
 
@@ -27,7 +26,7 @@ public class ExchangeScript : MonoBehaviour
 
         }
 
-        //ballScriptのDropBallメソッドを実行し、50のひよこを作成
+        //ballScriptのDropBallメソッドを実行し、40のひよこを作成
 
         BallScript.SendMessage("DropBall", 40);
 

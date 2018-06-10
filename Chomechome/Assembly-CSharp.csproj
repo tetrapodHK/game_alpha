@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="Assets\ballScript.cs" />
     <Compile Include="Assets\ExchangeScript.cs" />
+    <Compile Include="Assets\ScoreScript.cs" />
+    <Compile Include="Assets\TimerScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/evajy/Documents/Chomechome/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
